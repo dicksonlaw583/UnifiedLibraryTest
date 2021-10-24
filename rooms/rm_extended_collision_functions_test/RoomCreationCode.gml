@@ -1,0 +1,1 @@
+ecf_test_all();
