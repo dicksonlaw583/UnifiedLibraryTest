@@ -22,7 +22,7 @@ function r3_rec_cyl(vi_xyz, vo_rpz=[0, 0, 0]) {
 ///@arg {r3} vi_rpz Input 3D vector in cylindrical coordinates
 ///@arg {r3} <vo_xyz> (Optional) Output 3D vector in rectangular coordinates. If unspecified, return a new vector.
 ///@desc Return the rectangular equivalent of the 3D cylindrical vector.
-function r3_cyl_rec(vi_rpz, vo_xyz=[0, 0, 0]){
+function r3_cyl_rec(vi_rpz, vo_xyz=[0, 0, 0]) {
 	GMLINEAR_INLINE;
 	var rho = vi_rpz[0];
 	var azi = vi_rpz[1];
@@ -37,7 +37,7 @@ function r3_cyl_rec(vi_rpz, vo_xyz=[0, 0, 0]){
 ///@arg {r3} vi_xyz Input 3D vector in rectangular coordinates
 ///@arg {r3} <vo_rpt> (Optional) Output 3D vector in spherical coordinates. If unspecified, return a new vector.
 ///@desc Return the spherical equivalent of the 3D rectangular vector.
-function r3_rec_sph(vi_xyz, vo_rpt=[0, 0, 0]){
+function r3_rec_sph(vi_xyz, vo_rpt=[0, 0, 0]) {
 	GMLINEAR_INLINE;
 	var xx = vi_xyz[0];
 	var yy = vi_xyz[1];
