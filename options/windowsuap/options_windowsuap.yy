@@ -29,7 +29,7 @@
   "option_windowsuap_certificate_location": "${base_options_dir}\\windowsuap\\keys\\WinUWPRunner_TemporaryKey.pfx",
   "option_windowsuap_certificate_publishername": "CN=Sandbox",
   "option_windowsuap_native_cpu": 0,
-  "option_windowsuap_internet_capable": false,
+  "option_windowsuap_internet_capable": true,
   "option_windowsuap_microphone_capable": false,
   "option_windowsuap_iap_sandbox": false,
   "option_windowsuap_targetdevicefamily_universal": true,
