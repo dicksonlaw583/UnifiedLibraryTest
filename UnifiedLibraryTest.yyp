@@ -119,7 +119,6 @@
     {"id":{"name":"reqm_test_body_helpers","path":"scripts/reqm_test_body_helpers/reqm_test_body_helpers.yy",},"order":5,},
     {"id":{"name":"TicTacToe_classes","path":"scripts/TicTacToe_classes/TicTacToe_classes.yy",},"order":1,},
     {"id":{"name":"ac_gmtk2_triangle_wave","path":"animcurves/ac_gmtk2_triangle_wave/ac_gmtk2_triangle_wave.yy",},"order":1,},
-    {"id":{"name":"GMAssert","path":"extensions/GMAssert/GMAssert.yy",},"order":0,},
     {"id":{"name":"rm_json_struct_test","path":"rooms/rm_json_struct_test/rm_json_struct_test.yy",},"order":11,},
     {"id":{"name":"__GMA_BREAKPOINT__","path":"scripts/__GMA_BREAKPOINT__/__GMA_BREAKPOINT__.yy",},"order":0,},
     {"id":{"name":"rm_gmdictionary_test","path":"rooms/rm_gmdictionary_test/rm_gmdictionary_test.yy",},"order":3,},
@@ -179,6 +178,7 @@
     {"id":{"name":"lds_test_heap","path":"scripts/lds_test_heap/lds_test_heap.yy",},"order":4,},
     {"id":{"name":"lds_test_all","path":"scripts/lds_test_all/lds_test_all.yy",},"order":0,},
     {"id":{"name":"obj_unified_test","path":"objects/obj_unified_test/obj_unified_test.yy",},"order":5,},
+    {"id":{"name":"GMAssert","path":"extensions/GMAssert/GMAssert.yy",},"order":0,},
     {"id":{"name":"gmta_mcts_test_all","path":"scripts/gmta_mcts_test_all/gmta_mcts_test_all.yy",},"order":0,},
     {"id":{"name":"__obj_download_master_buffer_hitman__","path":"objects/__obj_download_master_buffer_hitman__/__obj_download_master_buffer_hitman__.yy",},"order":0,},
     {"id":{"name":"lds_test_sort","path":"scripts/lds_test_sort/lds_test_sort.yy",},"order":10,},
@@ -204,9 +204,8 @@
     {"name":"Amazon Fire","path":"options/amazonfire/options_amazonfire.yy",},
     {"name":"operagx","path":"options/operagx/options_operagx.yy",},
   ],
-  "isDnDProject": false,
+  "defaultScriptType": 1,
   "isEcma": false,
-  "tutorialPath": "",
   "configs": {
     "name": "Default",
     "children": [],
@@ -268,7 +267,7 @@
     {"targets":-1,"resourceVersion":"1.3","name":"audiogroup_default","resourceType":"GMAudioGroup",},
   ],
   "TextureGroups": [
-    {"isScaled":true,"autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,"resourceVersion":"1.3","name":"Default","resourceType":"GMTextureGroup",},
+    {"isScaled":true,"compressFormat":"bz2","autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,"resourceVersion":"1.3","name":"Default","resourceType":"GMTextureGroup",},
   ],
   "IncludedFiles": [
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"download_result.txt","resourceType":"GMIncludedFile",},
@@ -287,9 +286,9 @@
     {"CopyToMask":-1,"filePath":"datafiles/dictionaries/test","resourceVersion":"1.0","name":"jkl.txt","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
-    "IDEVersion": "2.3.7.606",
+    "IDEVersion": "2022.6.0.23",
   },
-  "resourceVersion": "1.4",
+  "resourceVersion": "1.5",
   "name": "UnifiedLibraryTest",
   "tags": [],
   "resourceType": "GMProject",
