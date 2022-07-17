@@ -1,3 +1,4 @@
+// Feather disable all
 function __gmlin_test_matrix_operations__() {
 	{
 	  //r22_clone
@@ -736,7 +737,51 @@ function __gmlin_test_matrix_operations__() {
 	  assert_is(rnn_invert_to(test_rnn_invert_to_M, test_rnn_invert_to_M), test_rnn_invert_to_M, "rnn_invert_to() is returning the wrong matrix when Mout is M!");
 	  assert_equalish(test_rnn_invert_to_M, test_rnn_invert_to_solution, "rnn_invert_to() failed when Mout is M!");
 	  rnn_clone_to(test_rnn_invert_to_M_orig, test_rnn_invert_to_M);
-  
+	  
+	  
+	  //r22_det(M)
+	  var test_r22_det_M = r22(1, 2, 3, 4);
+	  assert_equal(r22_det(test_r22_det_M), -2, "r22_det() failed!");
+	  //r33_det(M)
+	  var test_r33_det_M = r33(-2, -1, 2, 2, 1, 4, -3, 3, -1);
+	  assert_equal(r33_det(test_r33_det_M), 54, "r33_det() failed!");
+	  //r44_det(M)
+	  var test_r44_det_M = r44(0, 1, 0, 2, 3, 0, 4, 0, 0, 5, 0, 6, 7, 0, 8, 0);
+	  assert_equal(r44_det(test_r44_det_M), 16, "r44_det() failed!");
+	  //rnn_det(M)
+	  var test_rnn_det_M = rmn(5, 5,
+		0, 1, 0, 2, 3,
+		4, 0, 5, 0, 0,
+		6, 7, 0, 0, 8,
+		0, 9, 10, 11, 12,
+		13, 0, 14, 15, 0
+	  );
+	  assert_equal(rnn_det(test_r22_det_M), -2, "rnn_det() failed on 2x2!");
+	  assert_equal(rnn_det(test_r33_det_M), 54, "rnn_det() failed on 3x3!");
+	  assert_equal(rnn_det(test_r44_det_M), 16, "rnn_det() failed on 4x4!");
+	  assert_equal(rnn_det(test_rnn_det_M), 15621, "rnn_det() failed on 5x5!");
+	  
+	  //r22_tr(M)
+	  var test_r22_tr_M = r22(1, 2, 3, 4);
+	  assert_equal(r22_tr(test_r22_tr_M), 5, "r22_tr() failed!");
+	  //r33_tr(M)
+	  var test_r33_tr_M = r33(1, 2, 3, 4, 5, 6, 7, 8, 9);
+	  assert_equal(r33_tr(test_r33_tr_M), 15, "r33_tr() failed!");
+	  //r44_tr(M)
+	  var test_r44_tr_M = r44(-1, -2, -3, -4, 5, 6, 7, 8, -9, -10, -11, -12, 13, 14, 15, 16);
+	  assert_equal(r44_tr(test_r44_tr_M), 10, "r44_tr() failed!");
+	  //rnn_tr(M)
+	  var test_rnn_tr_M = rmn(5, 5,
+		0, 1, 0, 2, 3,
+		4, 0, 5, 0, 0,
+		6, 7, 0, 0, 8,
+		0, 9, 10, 11, 12,
+		13, 0, 14, 15, -16
+	  );
+	  assert_equal(rnn_tr(test_r22_tr_M), 5, "rnn_tr() failed on 2x2!");
+	  assert_equal(rnn_tr(test_r33_tr_M), 15, "rnn_tr() failed on 3x3!");
+	  assert_equal(rnn_tr(test_r44_tr_M), 10, "rnn_tr() failed on 4x4!");
+	  assert_equal(rnn_tr(test_rnn_tr_M), -5, "rnn_tr() failed on 5x5!");
   
 	  //r22_encode_string(M)
 	  var test_r22_encode_M = r22(3, -5, 13, -50),
@@ -853,3 +898,4 @@ function __gmlin_test_matrix_operations__() {
 
 
 }
+// feather enable all
