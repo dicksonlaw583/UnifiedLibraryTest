@@ -12,7 +12,7 @@ This is a centralized project containing all automated tests for GMS 2.3+ librar
 - GMXorWow 1.0.0
 - JSON Struct 1.1.0
 - Lightweight Data Structures 1.1.10
-- Request Master 1.2.1
+- Request Master 1.2.2
 
 ## Adding a Test from a New Library
 
