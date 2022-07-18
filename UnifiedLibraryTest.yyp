@@ -214,6 +214,7 @@
   },
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_unified_test_start","path":"rooms/rm_unified_test_start/rm_unified_test_start.yy",},},
+    {"roomId":{"name":"rm_extended_collision_functions_test","path":"rooms/rm_extended_collision_functions_test/rm_extended_collision_functions_test.yy",},},
     {"roomId":{"name":"rm_gmdictionary_test","path":"rooms/rm_gmdictionary_test/rm_gmdictionary_test.yy",},},
     {"roomId":{"name":"rm_gmlin_test","path":"rooms/rm_gmlin_test/rm_gmlin_test.yy",},},
     {"roomId":{"name":"rm_gmtactician_mcts_test","path":"rooms/rm_gmtactician_mcts_test/rm_gmtactician_mcts_test.yy",},},
@@ -224,7 +225,6 @@
     {"roomId":{"name":"rm_request_master_test","path":"rooms/rm_request_master_test/rm_request_master_test.yy",},},
     {"roomId":{"name":"rm_xorwow_test","path":"rooms/rm_xorwow_test/rm_xorwow_test.yy",},},
     {"roomId":{"name":"rm_unified_test_end","path":"rooms/rm_unified_test_end/rm_unified_test_end.yy",},},
-    {"roomId":{"name":"rm_extended_collision_functions_test","path":"rooms/rm_extended_collision_functions_test/rm_extended_collision_functions_test.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Libraries.yy","order":0,"resourceVersion":"1.0","name":"Libraries","tags":[],"resourceType":"GMFolder",},
