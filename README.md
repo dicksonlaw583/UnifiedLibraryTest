@@ -1,6 +1,6 @@
 # Unified Library Test
 
-This is a centralized project containing all automated tests for GMS 2.3+ libraries by Dickson Law. A correct run should go through each test room in turn, ending in a `c_lime` screen.
+This is a centralized project containing all automated tests for GMS 2022+ libraries by Dickson Law. A correct run should go through each test room in turn, ending in a `c_lime` screen.
 
 ## Tested Libraries
 
