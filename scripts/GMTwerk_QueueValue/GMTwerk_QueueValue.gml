@@ -1,16 +1,17 @@
-///@func QueueValueActor(interval, onPop, <opts>)
-///@param {real|int64} interval The time interval between releases
-///@param {method} onPop Method to perform upon each value release
-///@param {array} <opts> Additional options
+///@func QueueValueActor(interval, onPop, [opts])
+///@param {real} interval The time interval between releases
+///@param {function} onPop Method to perform upon each value release
+///@param {array} [opts] Additional options
 ///@desc GMTwerk actor for capturing incoming values and releasing them one at a time in fixed time intervals
-function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
-	///@func onAct(time)
-	///@param {real} time Steps (non-delta time) or milliseconds (delta time) passed
+function QueueValueActor(interval, onPop, opts=undefined) : GMTwerkActor() constructor {
+	///@func onAct(timePassed)
+	///@self QueueValueActor
+	///@param {real} timePassed Steps (non-delta time) or milliseconds (delta time) passed
 	///@desc Per-step action for this actor
-	static onAct = function(_timePassed) {
+	static onAct = function(timePassed) {
 		// If queue is active, tick down and release value updates
 		if (_dequeuePos >= 0) {
-			time -= _timePassed;
+			time -= timePassed;
 			while (time <= 0) {
 				if (_enqueuePos-_dequeuePos > 0) {
 					pop();
@@ -27,8 +28,10 @@ function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
 	};
 
 	///@func _clear(pos)
+	///@self QueueValueActor
 	///@param pos The position to reset to
-	///@desc Low-level clear, no triggering onClear
+	///@ignore
+	///@desc (INTERNAL: GMTwerk 2) Low-level clear without triggering onClear
 	static _clear = function(pos) {
 		array_resize(queue, 0);
 		_dequeuePos = pos;
@@ -36,6 +39,8 @@ function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
 	};
 
 	///@func clear()
+	///@self QueueValueActor
+	///@return {Struct.QueueValueActor}
 	///@desc Clear the queue, triggering onClear
 	static clear = function() {
 		_clear(-1);
@@ -44,7 +49,9 @@ function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
 	};
 
 	///@func push(val)
+	///@self QueueValueActor
 	///@param val The value to capture
+	///@return {Struct.QueueValueActor}
 	///@desc Capture a value and put it in queue, triggering onPush
 	static push = function(val) {
 		onPush(val);
@@ -59,6 +66,8 @@ function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
 	};
 	
 	///@func pop()
+	///@self QueueValueActor
+	///@return {Any}
 	///@desc Dequeue and return the upcoming value, triggering onPop
 	static pop = function() {
 		var val = queue[_dequeuePos++];
@@ -70,30 +79,34 @@ function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
 	};
 	
 	///@func size()
+	///@self QueueValueActor
+	///@return {real}
 	///@desc Return the number of pending values
 	static size = function() {
 		return _enqueuePos-_dequeuePos;
 	};
 
 	///@func top(n)
-	///@param <n> (Optional) The entry to look up past the current head
+	///@self QueueValueActor
+	///@param {Real} [n] (Optional) The entry to look up past the current head (default: 0)
+	///@return {Any}
 	///@desc Return the (n+1)th next entry, undefined if there is nothing
-	static top = function() {
-		var _targetPos = ((argument_count > 0) ? argument[0] : 0)+_dequeuePos;
+	static top = function(n=0) {
+		var _targetPos = n+_dequeuePos;
 		return (_targetPos < _enqueuePos) ? queue[_targetPos] : undefined;
 	};
 
 	// Constructor
-	interval = _interval;
-	time = _interval;
-	onPop = _onPop;
+	self.interval = interval;
+	time = interval;
+	self.onPop = onPop;
 	onPush = noop;
 	onClear = noop;
-	if (argument_count > 2) includeOpts(argument[2]);
+	if (!is_undefined(opts)) includeOpts(opts);
 
 	// Convert times
-	time = convertTime(time);
-	interval = convertTime(interval);
+	self.time = convertTime(self.time);
+	self.interval = convertTime(self.interval);
 
 	// Start with empty queue
 	queue = [];
@@ -101,13 +114,13 @@ function QueueValueActor(_interval, _onPop) : GMTwerkActor() constructor {
 	_enqueuePos = -1;
 }
 
-///@func QueueValue(interval, onPop, <opts>)
-///@param {real|int64} interval The time interval to 
-///@param {method} onPop Method to perform upon each value release
-///@param {array} <opts> Additional options
+///@func QueueValue(interval, onPop, [opts])
+///@param {real} interval The time interval to pop values at
+///@param {function} onPop Method to perform upon each value release
+///@param {array} [opts] Additional options
 ///@desc Enqueue and return a GMTwerk actor for capturing incoming values and releasing them one at a time in fixed time intervals
-function QueueValue(_interval, _onPop) {
-	var actor = new QueueValueActor(_interval, _onPop, (argument_count > 2) ? argument[2] : undefined);
+function QueueValue(interval, onPop, opts=undefined) {
+	var actor = new QueueValueActor(interval, onPop, opts);
 	__gmtwerk_insert__(actor);
 	return actor;
 }
