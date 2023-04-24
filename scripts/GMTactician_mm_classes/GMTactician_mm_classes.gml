@@ -235,7 +235,7 @@ function MmTree(state, maxDepth) constructor {
 		var _sequence = [];
 		var _currentNode = root;
 		var ii = 0;
-		repeat (n) {
+		for (var i = 0; i < n; ++i) {
 			var _bestNode = _getBestChild(_currentNode);
 			if (is_undefined(_bestNode)) return _sequence;
 			_sequence[@ii++] = _bestNode.move;
