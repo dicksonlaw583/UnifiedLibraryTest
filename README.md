@@ -9,11 +9,11 @@ This is a centralized project containing all automated tests for GMS 2022+ libra
 - GMLinear 2.3.0
 - GMSortBy 1.0.0
 - GMTactician MCTS Tree 1.1.0
-- GMTactician Minimax Tree 1.1.0
+- GMTactician Minimax Tree 1.1.0a
 - GMTwerk 2.1.0
 - GMXorWow 1.2.0
 - JSON Struct 1.2.0
-- Lightweight Data Structures 1.2.0
+- Lightweight Data Structures 1.2.0a
 - RC4 1.1.0
 - Request Master 1.3.0
 

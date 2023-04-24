@@ -1119,19 +1119,19 @@ function GridRegionIterator(grid, _x1, _y1, _x2, _y2) constructor {
 	};
 }
 
-///@class GridIndexOutOfBoundsException(x, y)
-///@param {Real} x The X position.
-///@param {Real} y The Y position.
+///@class GridIndexOutOfBoundsException(xx, yy)
+///@param {Real} xx The X position.
+///@param {Real} yy The Y position.
 ///@desc Exception when accessing a Grid beyond its size boundaries.
-function GridIndexOutOfBoundsException(x, y) constructor {
-	self.x = x;
-	self.y = y;
+function GridIndexOutOfBoundsException(xx, yy) constructor {
+	self.xx = xx;
+	self.yy = yy;
 	
 	///@func toString()
 	///@self GridIndexOutOfBoundsException
 	///@return {String}
 	///@desc Return a string message describing the exception.
 	static toString = function() {
-		return "Grid index (" + string(x) + "," + string(y) + ") is out of bounds.";
+		return "Grid index (" + string(xx) + "," + string(yy) + ") is out of bounds.";
 	}
 }
