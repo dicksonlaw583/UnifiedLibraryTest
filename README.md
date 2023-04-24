@@ -10,7 +10,7 @@ This is a centralized project containing all automated tests for GMS 2022+ libra
 - GMTactician MCTS Tree 1.1.0
 - GMTactician Minimax Tree 1.1.0
 - GMTwerk 2.1.0
-- GMXorWow 1.0.0
+- GMXorWow 1.2.0
 - JSON Struct 1.1.0
 - Lightweight Data Structures 1.2.0
 - Request Master 1.2.2
