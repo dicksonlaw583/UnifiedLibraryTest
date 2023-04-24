@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "XhrDownloadResponse",
+  "name": "RequestMaster_Functions",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

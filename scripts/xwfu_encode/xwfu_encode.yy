@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "XhrDownloadResponse",
+  "name": "xwfu_encode",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
