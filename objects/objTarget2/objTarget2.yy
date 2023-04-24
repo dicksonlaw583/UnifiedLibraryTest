@@ -1,10 +1,14 @@
 {
+  "resourceType": "GMObject",
+  "resourceVersion": "1.0",
+  "name": "objTarget2",
   "spriteId": {
     "name": "sprThing",
     "path": "sprites/sprThing/sprThing.yy",
   },
   "solid": false,
   "visible": true,
+  "managed": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
@@ -25,16 +29,12 @@
   "physicsShapePoints": [],
   "eventList": [],
   "properties": [
-    {"varType":1,"value":"0","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"value","tags":[],"resourceType":"GMObjectProperty",},
-    {"varType":7,"value":"$FFFF00FF","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"image_blend","tags":[],"resourceType":"GMObjectProperty",},
+    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"value","varType":1,"value":"0","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
+    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"image_blend","varType":7,"value":"$FFFF00FF","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
   ],
   "overriddenProperties": [],
   "parent": {
     "name": "Placeholders",
     "path": "folders/Libraries_test/ExtendedCollisionFunctions_test/Placeholders.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "objTarget2",
-  "tags": [],
-  "resourceType": "GMObject",
 }

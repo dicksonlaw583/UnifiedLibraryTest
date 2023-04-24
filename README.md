@@ -4,7 +4,7 @@ This is a centralized project containing all automated tests for GMS 2022+ libra
 
 ## Tested Libraries
 
-- Extended Collision Functions 1.1.0
+- Extended Collision Functions 1.2.0
 - GMDictionary 1.0.1
 - GMLinear 2.3.0
 - GMTactician MCTS Tree 1.1.0
