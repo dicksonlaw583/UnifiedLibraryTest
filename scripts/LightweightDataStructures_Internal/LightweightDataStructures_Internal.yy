@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__LDS_CONFIGS__",
+  "name": "LightweightDataStructures_Internal",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
     "name": "LightweightDataStructures",
-    "path": "folders/Libraries_config/LightweightDataStructures.yy",
+    "path": "folders/Libraries/LightweightDataStructures.yy",
   },
 }

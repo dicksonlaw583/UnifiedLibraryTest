@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "lds_test_queue",
+  "name": "lds_test_file",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

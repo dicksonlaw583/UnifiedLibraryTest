@@ -12,7 +12,7 @@ This is a centralized project containing all automated tests for GMS 2022+ libra
 - GMTwerk 2.1.0
 - GMXorWow 1.0.0
 - JSON Struct 1.1.0
-- Lightweight Data Structures 1.1.10
+- Lightweight Data Structures 1.2.0
 - Request Master 1.2.2
 
 ## Adding a Test from a New Library
