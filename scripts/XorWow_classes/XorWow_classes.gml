@@ -4,6 +4,7 @@
 Descendants should override the following:
 - toArray()
 - toStruct()
+- clone()
 - srandomize()
 - srandom(n)
 - sirandom(n)
@@ -17,9 +18,11 @@ function __XorSeed__() constructor {
 	};
 	static srandom = function(n) {
 		show_error(instanceof(self) + " failed to implement srandom(n).", true);
+		return 0;
 	};
 	static sirandom = function(n) {
 		show_error(instanceof(self) + " failed to implement sirandom(n).", true);
+		return 0;
 	};
 	
 	/* Template methods */
@@ -27,14 +30,16 @@ function __XorSeed__() constructor {
 	///@func srandom_range(m, n)
 	///@param {real} m
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for random_range(m, n)
 	static srandom_range = function(m, n) {
 		return srandom(n-m)+m;
 	};
 	
 	///@func sirandom_range(m, n)
-	///@param {int} m
-	///@param {int} n
+	///@param {real} m
+	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for irandom_range(m, n)
 	static sirandom_range = function(m, n) {
 		var _m = floor(m);
@@ -43,15 +48,17 @@ function __XorSeed__() constructor {
 	};
 	
 	///@func schoose(...)
+	///@return {Any*}
 	///@desc Seeded replacement for choose(...)
 	static schoose = function() {
 		return argument[sirandom(argument_count-1)];
 	};
 	
 	///@func sds_list_shuffle(list)
-	///@param {ds_list} list
+	///@param {Id.DsList} list
 	///@desc Seeded replacement for ds_list_shuffle(list)
 	static sds_list_shuffle = function(list) {
+		//Feather disable GM1061
 		for (var i = ds_list_size(list)-1; i > 0; --i) {
 			var j = sirandom(i);
 			var temp = list[| i];
@@ -61,7 +68,7 @@ function __XorSeed__() constructor {
 	};
 	
 	///@func sds_grid_shuffle(grid)
-	///@param {ds_grid} grid
+	///@param {Id.DsGrid} grid
 	///@desc Seeded replacement for ds_grid_shuffle(grid)
 	static sds_grid_shuffle = function(grid) {
 		var gridWidth = ds_grid_width(grid);
@@ -77,15 +84,46 @@ function __XorSeed__() constructor {
 		}
 	};
 	
-	///@func sarray_shuffle(array)
+	///@func sarray_shuffle(array, [offset], [length])
 	///@param {array} array
-	///@desc Seeded replacement for array_shuffle(array)
-	static sarray_shuffle = function(array) {
-		for (var i = array_length(array)-1; i > 0; --i) {
-			var j = sirandom(i);
-			var temp = array[i];
-			array[@i] = array[j];
-			array[@j] = temp;
+	///@param {real} [offset]
+	///@param {real} [length]
+	///@return {Array<Any*>}
+	///@desc Seeded replacement for array_shuffle(array, [offset], [length])
+	static sarray_shuffle = function(array, offset=0, length=infinity) {
+		//Feather disable GM1061
+		var result = [];
+		var n = array_length(array),
+			iStep = sign(length),
+			iFrom = (offset < 0) ? n+offset : offset,
+			iTo = clamp(iFrom+length-iStep, 0, n-1),
+			iStopAt = iTo+iStep;
+		for (var i = iFrom; i != iStopAt; i += iStep) {
+			array_push(result, array[i]);
+		}
+		sarray_shuffle_ext(result);
+		return result;
+	};
+	
+	///@func sarray_shuffle_ext(array, [offset], [length])
+	///@param {array} array
+	///@param {real} [offset]
+	///@param {real} [length]
+	///@desc Seeded replacement for array_shuffle_ext(array, [offset], [length])
+	static sarray_shuffle_ext = function(array, offset=0, length=infinity) {
+		//Feather disable GM1061
+		var n = array_length(array),
+			iStep = sign(length),
+			iFrom = (offset < 0) ? n+offset : offset,
+			iTo = clamp(iFrom+length-iStep, 0, n-1),
+			iStopAt = iTo+iStep;
+		for (var i = iFrom; i != iStopAt; i += iStep) {
+			var i2 = (iStep > 0) ? sirandom_range(i, iTo) : sirandom_range(iTo, i);
+			if (array[i] != array[i2]) {
+				var swapTemp = array[i];
+				array[@i] = array[i2];
+				array[@i2] = swapTemp;
+			}
 		}
 	};
 }
@@ -113,15 +151,24 @@ function __xorshift_hex_to_dec__(hex) {
 */
 function XorWow() : __XorSeed__() constructor {
 	///@func toArray()
+	///@return {Array<real>}
 	///@desc Return this seed's state values as an array
 	static toArray = function() {
 		return [a, b, c, d, e, counter];
 	}
 	
 	///@func toStruct()
+	///@return {Struct}
 	///@desc Return this seed's state values as a struct
 	static toStruct = function() {
 		return { a: a, b: b, c: c, d: d, e: e, counter: counter };
+	};
+	
+	///@func clone()
+	///@return {Struct.XorWow}
+	///@desc Return a clone of this seed.
+	static clone = function() {
+		return new XorWow(toArray());
 	};
 	
 	///@func srandomize()
@@ -143,6 +190,7 @@ function XorWow() : __XorSeed__() constructor {
 	};
 	
 	///@func __rand__()
+	///@return {real}
 	///@desc Update the seed's state and return a raw random value
 	static __rand__ = function() {
 		var t = e;
@@ -161,13 +209,15 @@ function XorWow() : __XorSeed__() constructor {
 	
 	///@func srandom(n)
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for random(n)
 	static srandom = function(n) {
-		return real(__rand__())/real($FFFFFFFF);
+		return real(__rand__())/real($FFFFFFFF)*n;
 	};
 	
 	///@func sirandom(n)
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for irandom(n)
 	static sirandom = function(n) {
 		return __rand__() mod (n+1);
@@ -238,15 +288,24 @@ function XorWow() : __XorSeed__() constructor {
 */
 function XorShift32() : __XorSeed__() constructor {
 	///@func toArray()
+	///@return {Array<real>}
 	///@desc Return this seed's state values as an array
 	static toArray = function() {
 		return [a];
 	}
 	
 	///@func toStruct()
+	///@return {Struct}
 	///@desc Return this seed's state values as a struct
 	static toStruct = function() {
 		return { a: a };
+	};
+	
+	///@func clone()
+	///@return {Struct.XorShift32}
+	///@desc Return a clone of this seed.
+	static clone = function() {
+		return new XorShift32(toArray());
 	};
 	
 	///@func srandomize()
@@ -257,6 +316,7 @@ function XorShift32() : __XorSeed__() constructor {
 	};
 	
 	///@func __rand__()
+	///@return {real}
 	///@desc Update the seed's state and return a raw random value
 	static __rand__ = function() {
 		var t = a;
@@ -269,13 +329,15 @@ function XorShift32() : __XorSeed__() constructor {
 	
 	///@func srandom(n)
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for random(n)
 	static srandom = function(n) {
-		return real(__rand__())/real($FFFFFFFF);
+		return real(__rand__())/real($FFFFFFFF)*n;
 	};
 	
 	///@func sirandom(n)
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for irandom(n)
 	static sirandom = function(n) {
 		return __rand__() mod (n+1);
@@ -316,18 +378,28 @@ function XorShift32() : __XorSeed__() constructor {
 */
 function XorShift128() : __XorSeed__() constructor {
 	///@func toArray()
+	///@return {Array<real>}
 	///@desc Return this seed's state values as an array
 	static toArray = function() {
 		return [a, b, c, d];
 	}
 	
 	///@func toStruct()
+	///@return {Struct}
 	///@desc Return this seed's state values as a struct
 	static toStruct = function() {
 		return { a: a, b: b, c: c, d: d };
 	};
 	
+	///@func clone()
+	///@return {Struct.XorShift128}
+	///@desc Return a clone of this seed.
+	static clone = function() {
+		return new XorShift128(toArray());
+	};
+	
 	///@func srandomize()
+	///@return {real}
 	///@desc Randomize this seed
 	static srandomize = function() {
 		var hash = sha1_string_unicode(keyboard_lastchar + string(get_timer()) + string(date_current_datetime()) + string(current_time) + keyboard_string);
@@ -344,6 +416,7 @@ function XorShift128() : __XorSeed__() constructor {
 	};
 	
 	///@func __rand__()
+	///@return {real}
 	///@desc Update the seed's state and return a raw random value
 	static __rand__ = function() {
 		var t = d;
@@ -359,13 +432,15 @@ function XorShift128() : __XorSeed__() constructor {
 	
 	///@func srandom(n)
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for random(n)
 	static srandom = function(n) {
-		return real(__rand__())/real($FFFFFFFF);
+		return real(__rand__())/real($FFFFFFFF)*n;
 	};
 	
 	///@func sirandom(n)
 	///@param {real} n
+	///@return {real}
 	///@desc Seeded replacement for irandom(n)
 	static sirandom = function(n) {
 		return __rand__() mod (n+1);
@@ -423,14 +498,15 @@ function xrandomize() {
 	global.__xorshift_state__.srandomize();
 }
 
-///@func xrandom_get_seed()
-///@desc Return the currently used seed
-function xrandom_get_seed() {
-	return global.__xorshift_state__;
+///@func xrandom_get_seed([noClone])
+///@param {Bool} [noClone] OPTIONAL: Specify true here to get the seed directly instead of a clone of it.
+///@desc Return a clone of the currently used seed (false) or the currently used seed (true)
+function xrandom_get_seed(noClone=false) {
+	return noClone ? global.__xorshift_state__ : global.__xorshift_state__.clone();
 }
 
 ///@func xrandom_set_seed(seed)
-///@param {__XorSeed__} seed
+///@param {Struct.__XorSeed__} seed
 ///@desc Set a new seed
 function xrandom_set_seed(seed) {
 	global.__xorshift_state__ = seed;
@@ -438,13 +514,15 @@ function xrandom_set_seed(seed) {
 
 ///@func xrandom(n)
 ///@param {real} n
+///@return {real}
 ///@desc Replacement for random(n)
 function xrandom(n) {
 	return global.__xorshift_state__.srandom(n);
 }
 
 ///@func xirandom(n)
-///@param {int} n
+///@param {real} n
+///@return {real}
 ///@desc Replacement for irandom(n)
 function xirandom(n) {
 	return global.__xorshift_state__.sirandom(n);
@@ -453,45 +531,61 @@ function xirandom(n) {
 ///@func xrandom_range(m, n)
 ///@param {real} m
 ///@param {real} n
+///@return {real}
 ///@desc Replacement for random_range(m, n)
 function xrandom_range(m, n) {
 	return global.__xorshift_state__.srandom_range(m, n);
 }
 
 ///@func xirandom_range(m, n)
-///@param {int} m
-///@param {int} n
+///@param {real} m
+///@param {real} n
+///@return {real}
 ///@desc Replacement for irandom_range(m, n)
 function xirandom_range(m, n) {
 	return global.__xorshift_state__.sirandom_range(m, n);
 }
 
 ///@func xchoose(...)
+///@return {Any*}
 ///@desc Replacement for choose(...)
 function xchoose() {
 	return argument[global.__xorshift_state__.sirandom(argument_count-1)];
 }
 
 ///@func xds_list_shuffle(list)
-///@param {ds_list} list
+///@param {Id.DsList} list
 ///@desc Replacement for ds_list_shuffle(list)
 function xds_list_shuffle(list) {
 	global.__xorshift_state__.sds_list_shuffle(list);
 }
 
 ///@func xds_grid_shuffle(grid)
-///@param {ds_grid} grid
+///@param {Id.DsGrid} grid
 ///@desc Replacement for ds_grid_shuffle(grid)
 function xds_grid_shuffle(grid) {
 	global.__xorshift_state__.sds_grid_shuffle(grid);
 }
 
-///@func xarray_shuffle(array)
+///@func xarray_shuffle(array, [offset], [length])
 ///@param {array} array
-///@desc Replacement for array_shuffle(array)
-function xarray_shuffle(array) {
-	global.__xorshift_state__.sarray_shuffle(array);
+///@param {real} [offset]
+///@param {real} [length]
+///@desc Replacement for array_shuffle(array, [offset], [length])
+function xarray_shuffle(array, offset=0, length=infinity) {
+	return global.__xorshift_state__.sarray_shuffle(array, offset, length);
+}
+
+///@func xarray_shuffle_ext(array, [offset], [length])
+///@param {array} array
+///@param {real} [offset]
+///@param {real} [length]
+///@desc Replacement for array_shuffle_ext(array, [offset], [length])
+function xarray_shuffle_ext(array, offset=0, length=infinity) {
+	global.__xorshift_state__.sarray_shuffle_ext(array, offset, length);
 }
 
 // Initialize global seed randomly
 global.__xorshift_state__ = new XorWow();
+
+

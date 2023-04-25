@@ -1,18 +1,21 @@
 # Unified Library Test
 
-This is a centralized project containing all automated tests for GMS 2.3+ libraries by Dickson Law. A correct run should go through each test room in turn, ending in a `c_lime` screen.
+This is a centralized project containing all automated tests for GMS 2022+ libraries by Dickson Law. A correct run should go through each test room in turn, ending in a `c_lime` screen.
 
 ## Tested Libraries
 
-- Extended Collision Functions 1.1.0
+- Extended Collision Functions 1.2.0
+- GMDictionary 1.0.1
 - GMLinear 2.3.0
-- GMTactician MCTS Tree 1.0.0
-- GMTactician Minimax Tree 1.0.0
-- GMTwerk 2.0.2
-- GMXorWow 1.0.0
-- JSON Struct 1.1.0
-- Lightweight Data Structures 1.1.10
-- Request Master 1.2.2
+- GMSortBy 1.0.0
+- GMTactician MCTS Tree 1.1.0
+- GMTactician Minimax Tree 1.1.0a
+- GMTwerk 2.1.0
+- GMXorWow 1.2.0
+- JSON Struct 1.2.0
+- Lightweight Data Structures 1.2.0a
+- RC4 1.1.0
+- Request Master 1.3.0
 
 ## Adding a Test from a New Library
 

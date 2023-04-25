@@ -1,7 +1,11 @@
 {
+  "resourceType": "GMObject",
+  "resourceVersion": "1.0",
+  "name": "pobjTarget",
   "spriteId": null,
   "solid": false,
   "visible": true,
+  "managed": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": null,
@@ -24,8 +28,4 @@
     "name": "Placeholders",
     "path": "folders/Libraries_test/ExtendedCollisionFunctions_test/Placeholders.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "pobjTarget",
-  "tags": [],
-  "resourceType": "GMObject",
 }
