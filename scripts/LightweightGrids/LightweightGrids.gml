@@ -1028,9 +1028,9 @@ function GridDiskIterator(grid, _xm, _ym, _r) constructor {
 	_R = r-abs(_dy);
 	_X = min(grid._width-xm-1, _R);
 	_dx = max(-xm, -_R);
-	x = xm+_dx;
-	y = ym+_dy;
-	value = (x > 0 && y > 0 && x < _width && y < _height) ? grid._data[x+y*_width] : undefined;
+	xx = xm+_dx;
+	yy = ym+_dy;
+	value = (xx > 0 && yy > 0 && xx < _width && yy < _height) ? grid._data[xx+yy*_width] : undefined;
 	
 	///@func hasNext()
 	///@self GridDiskIterator
@@ -1052,10 +1052,10 @@ function GridDiskIterator(grid, _xm, _ym, _r) constructor {
 			_R = r-abs(_dy);
 			_X = min(_width-xm-1, _R);
 			_dx = max(-xm, -_R);
-			y = ym+_dy;
+			yy = ym+_dy;
 		}
-		x = xm+_dx;
-		value = _grid._data[x+y*_width];
+		xx = xm+_dx;
+		value = _grid._data[xx+yy*_width];
 	};
 	
 	///@func set(val)
@@ -1063,7 +1063,7 @@ function GridDiskIterator(grid, _xm, _ym, _r) constructor {
 	///@param {Any} val 
 	///@desc Set the value that the current iteration points to.
 	static set = function(val) {
-		_grid._data[@x+y*_width] = val;
+		_grid._data[@xx+yy*_width] = val;
 		value = val;
 	};
 }
@@ -1083,30 +1083,30 @@ function GridRegionIterator(grid, _x1, _y1, _x2, _y2) constructor {
 	y1 = max(0, _y1);
 	x2 = min(_width-1, _x2);
 	y2 = min(_height-1, _y2);
-	x = x1;
-	y = y1;
-	value = (x <= x2 && y <= y2) ? _grid._data[x+y*_width] : undefined;
+	xx = x1;
+	yy = y1;
+	value = (xx <= x2 && yy <= y2) ? _grid._data[xx+yy*_width] : undefined;
 	
 	///@func hasNext()
 	///@self GridRegionIterator
 	///@return {Bool}
 	///@desc Return whether there are more entries to iterate.
 	static hasNext = function() {
-		return (x <= x2 && y <= y2);
+		return (xx <= x2 && yy <= y2);
 	};
 	
 	///@func next()
 	///@self GridRegionIterator
 	///@desc Iterate to the next entry.
 	static next = function() {
-		if (++x > x2) {
-			if (++y > y2) {
+		if (++xx > x2) {
+			if (++yy > y2) {
 				value = undefined;
 				return false;
 			}
-			x = x1;
+			xx = x1;
 		}
-		value = _grid._data[x+y*_width];
+		value = _grid._data[xx+yy*_width];
 	};
 	
 	///@func set(val)
@@ -1114,7 +1114,7 @@ function GridRegionIterator(grid, _x1, _y1, _x2, _y2) constructor {
 	///@param {Any} val 
 	///@desc Set the value that the current iteration points to.
 	static set = function(val) {
-		_grid._data[@x+y*_width] = val;
+		_grid._data[@xx+yy*_width] = val;
 		value = val;
 	};
 }
